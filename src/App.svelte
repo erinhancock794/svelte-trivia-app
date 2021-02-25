@@ -1,39 +1,70 @@
+<!-- A # character always indicates a block opening tag. A / character always indicates a block closing tag. A : character, as in {:else}, indicates a block continuation tag.  -->
+<!-- use tween to show a progress bar -->
+
 <script>
+	import Quiz from './components/Quiz.svelte'
+    // import Questions from './components/Questions.svelte'
+	// import {onMount} from 'svelte'
+// import { log } from 'node:console';
+
+	console.log('quizzzzz', Quiz);
+	// let response = [];
+
 	export let name;
+	// function getQuiz() {
+	// 	return Quiz;
+	// }
 
+	// const APIURL = 'https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple';
 
-	let todos = [
-		{id: 0, todo: 'do the thing', done: false}
-	]
+	// let data = getQuiz();
+	// onMount(async () => {
+	// 	const res = await fetch(APIURL);
+	// 	response = await res.json();
+	// 	response = response.results;
+	// 	console.log('response', response);
+	// 	return response;
+	// });
 
+// async function getData() {
+//     const response = await fetch(APIURL); 
+//     let fullData = await response.json();
+// 	console.log('data----->', fullData)
+// 	return fullData;
+// }
+
+// function handleClick() {
+// 	return data;
+// }
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<h2>Movie {name} Quiz</h2>
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+<Quiz />
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
+	<!-- <button on:click={getQuiz()}>Start</button> -->
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
+<!-- <div class='quiz'>
+    {#each response as question}
+	<Questions {question} />
+
+    {/each} -->
+
+
+    <!-- {#await data}
+    ...Loading 
+    {:then trivia}
+    {#each trivia.results as question}
+    <Questions {question} />
+    {/each}
+    {/await} -->
+    <!-- <button on:click={handleClick}>History</button> -->
+
+<!-- </div> -->
+
+
+
+
 
 
 <!-- to deploy: npm run build -->
