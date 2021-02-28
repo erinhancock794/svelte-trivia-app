@@ -7,13 +7,18 @@
 	export let name; //main.js
 </script>
 
-<h2>Movie {name} Quiz</h2>
+<h2>{name} Quiz</h2>
 <p></p>
 
 <Quiz />
 
 
-
+<style>
+	h2{
+		text-align: center;
+		font-size: 3em;
+	}
+</style>
 
 
 

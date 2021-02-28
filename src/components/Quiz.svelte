@@ -1,55 +1,72 @@
 <script>
+    import Loader from "./Loader.svelte";
 
-import { onMount } from 'svelte';
+    let chosenDifficulty;
+    let selectedCategory;
 
-    import Questions from './Questions.svelte';
-    import Score from './Score.svelte';
+    export function handleClick() {
+        return getData();
+    }
 
-	const APIURL = 'https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple';
+    function pickDifficulty(difficulty) {
+        return () => {
+            console.log(`The difficulty is ${difficulty}`);
+            chosenDifficulty = difficulty;
+        };
+    }
 
-
-	export let quiz;
-    quiz = getData();
-     let response;
-	
-        // onMount(async () => {
-		// const res = await fetch(APIURL);
-		// response = await res.json();
-		// response = response.results;
-		// console.log('response', response);
-		// return response;
-        // });
-
-    async function getData() {
-    const response = await fetch(APIURL); 
-    let fullData = await response.json();
-	console.log('data----->', fullData.results)
-    quiz = fullData.results;
-	return quiz;
-}
-
-export function handleClick() {
-    return getData();
-
-}
+    function selectCategory(event) {
+        console.log(`The category is ${event.target.value}`);
+        selectedCategory = event.target.value;
+    }
 </script>
 
 <div>
-    <p>This is from Quiz.svelte</p>
-    <div>
-        <h2> Select difficulty level</h2>
-    <button>Easy</button>
-    <button>Medium</button>
-    <button>Hard</button>
 
+    {#if chosenDifficulty && selectedCategory}
+        <Loader {selectedCategory} selectedDifficulty={chosenDifficulty} />
+    {:else}
+    <h2> Select Topic</h2>
+        <select bind:value={selectedCategory} on:blur={selectCategory}>
+            <option value={9}>General Knowledge</option>
+            <option value={10}>Entertainment: Books</option>
+            <option value={11}>Entertainment: Film</option>
+            <option value={12}>Entertainment: Music</option>
+            <option value={16}>Entertainment: Board Games</option>
+            <option value={20}>Mythology</option>
+            <option value={18}>Science: Computers</option>
+        </select>
+        <div class="difficulty">
+            <h2>Select difficulty level</h2>
+            <button on:click={pickDifficulty("EASY")}>Easy</button>
+            <button on:click={pickDifficulty("MEDIUM")}>Medium</button>
+            <button on:click={pickDifficulty("HARD")}>Hard</button>
+        </div>
+        <p>Waiting for difficulty and category to be selected...</p>
+    {/if}
 </div>
-    {#await quiz}
-    ...Loading 
-    {:then res}
-    {#each res as question}
-    <Questions {question} />
-    {/each}
-    {/await}
-    <!-- <button on:click={handleClick}>History</button> -->
 
-</div>
+<style>
+    div{
+        /* display: grid; */
+        /* flex-direction: column; */
+        text-align: center; 
+
+    }
+    .difficulty button{
+        /* margin: 10px;*/
+        border-radius: 10px; 
+        padding: 10px;
+        margin: 5px;
+        background-color:#71a7b7;
+        cursor: pointer;
+        border: none;
+    }
+    .difficulty button:hover{
+        opacity: 80%;
+        color: white;
+        transition: .2s;
+        border: none;
+    }
+
+</style>
